@@ -36,8 +36,8 @@ function PackingList() {
 }
 function Stats() {
   return (
-    <footer className="w-full text-center">
-      <em className="pt-4">
+    <footer className="flex items-center justify-center w-full text-center bg-sky-600 h-10">
+      <em className=" text-white">
         You have X items on your list, and you already packed X (X%)
       </em>
     </footer>
