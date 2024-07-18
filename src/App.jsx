@@ -27,6 +27,7 @@ function Logo() {
 
 function Form() {
   const [description, setDescription] = useState('')
+  const [quantity, setQuantity] = useState(2);
   function handleSubmit(e){
 e.preventDefault()
   }
@@ -36,13 +37,18 @@ e.preventDefault()
       <h3 className="text-center font-normal text-lg sm:text-2xl bg-orange-600">
         What stuffs do you need for Trip ?
       </h3>
-      <select className="h-[44px] bg-orange-100 w-[80px] rounded-full text-center font-semibold">
+      <select value={quantity} onChange={(e) => {
+          console.log(e.target.value);
+          setQuantity(Number(e.target.value))}} className="h-[44px] bg-orange-100 w-[80px] rounded-full text-center font-semibold">
         {Array.from({length: 20}, (_, i) => i + 1).map((num) =>(
-          <option value={num} key={num}>{num}</option>
+        <option  value={num} key={num}>{num}</option>
         ))
         }
       </select>
-      <input type="text" placeholder="Enter item..." className="h-[38px] w-full sm:w-[300px] rounded-md bg-orange-100 px-4" />
+      <input onChange={(e) => {
+        // console.log(e);
+        console.log(e.target.value);
+        setDescription(e.target.value)}} value={description} type="text" placeholder="Enter item..." className="h-[38px] w-full sm:w-[300px] rounded-md bg-orange-100 px-4" />
       <button className="h-[38px] px-4 rounded-md w-full sm:w-[300px] border bg-orange-200">Add</button>
     </form>
   );
