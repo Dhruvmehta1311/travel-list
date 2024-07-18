@@ -24,8 +24,12 @@ function Logo() {
 }
 
 function Form() {
+  function handleSubmit(e){
+e.preventDefault()
+  }
+
   return (
-    <form className="flex sm:flex-row flex-col gap-4 py-4 px-4 sm:gap-4 bg-orange-600 items-center">
+    <form onSubmit={handleSubmit} className="flex sm:flex-row flex-col gap-4 py-4 px-4 sm:gap-4 bg-orange-600 items-center justify-between">
       <h3 className="text-center font-normal text-lg sm:text-2xl bg-orange-600">
         What stuffs do you need for Trip ?
       </h3>
