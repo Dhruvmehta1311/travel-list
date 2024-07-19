@@ -66,7 +66,7 @@ function Form() {
         onChange={(e) => {
           // console.log(e);
           console.log(e.target.value);
-          setDescription(e.target.value);
+          setDescription(e.target.value.trim());
         }}
         value={description}
         type="text"
