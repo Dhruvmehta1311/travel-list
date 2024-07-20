@@ -8,6 +8,11 @@ const initialItems = [
 
 export default function App() {
   const [items, setItems] = useState([]);
+
+  function handleDeleteItems(id) {
+    setItems(items.filter((item) => item.id !== id));
+  }
+
   function handleAddItems(item) {
     setItems((items) => [...items, item]);
   }
@@ -15,7 +20,7 @@ export default function App() {
     <div className="flex flex-col h-screen bg-yellow-900">
       <Logo />
       <Form addItems={handleAddItems} />
-      <PackingList items={items} />
+      <PackingList items={items} handleDeleteItems={handleDeleteItems} />
       <Stats />
     </div>
   );
@@ -87,12 +92,16 @@ function Form({ addItems }) {
   );
 }
 
-function PackingList({ items }) {
+function PackingList({ items, handleDeleteItems }) {
   return (
     <div className="bg-yellow-900 h-full">
       <ul className="flex flex-wrap gap-10 font-semibold text-xl bg-yellow-900 text-white p-4">
         {items.map((item) => (
-          <Item item={item} key={item.id} />
+          <Item
+            item={item}
+            handleDeleteItems={handleDeleteItems}
+            key={item.id}
+          />
         ))}
       </ul>
     </div>
@@ -109,21 +118,13 @@ function Stats() {
   );
 }
 
-function Item({ item }) {
+function Item({ item, handleDeleteItems }) {
   return (
     <li className="font-bold">
       <span className={item.packed ? "line-through" : ""}>
         {item.quantity} {item.description}
       </span>
-      <button>❌</button>
+      <button onClick={() => handleDeleteItems(item.id)}>❌</button>
     </li>
   );
 }
-
-//  ├── Logo
-//  ├── Form (addItems function passed as prop)
-//  ├── PackingList (items and handleDeleteItems passed as props)
-//  │    ├── Item (item and handleDeleteItems passed as props)
-//  │    ├── Item (item and handleDeleteItems passed as props)
-//  │    └── Item (item and handleDeleteItems passed as props)
-//  └── Stats
