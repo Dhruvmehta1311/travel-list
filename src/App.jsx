@@ -108,7 +108,7 @@ function Form({ handleAddItems }) {
 
 function PackingList({ items, handleDeleteItem, handleUpdateItems }) {
   return (
-    <div className="bg-yellow-900 h-full">
+    <div className="bg-yellow-900 h-full sm:px-4">
       <ul className="flex flex-wrap gap-10 font-semibold text-xl bg-yellow-900 text-white p-4">
         {items.map((item) => (
           <Item
@@ -149,7 +149,7 @@ function Stats({ items }) {
 
 function Item({ item, handleDeleteItem, handleUpdateItems }) {
   return (
-    <li className="font-bold flex gap-2">
+    <li className="font-semibold flex gap-2">
       <input
         type="checkbox"
         className="w-4"
