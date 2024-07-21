@@ -13,11 +13,16 @@ export default function App() {
     console.log(item);
     setItems([...items, item]);
   }
+
+  function handleDeleteItem(itemId) {
+    setItems(items.filter((item) => item.id !== itemId));
+  }
+
   return (
     <div className="flex flex-col h-screen bg-yellow-900">
       <Logo />
       <Form handleAddItems={handleAddItems} />
-      <PackingList items={items} />
+      <PackingList items={items} handleDeleteItem={handleDeleteItem} />
       <Stats />
     </div>
   );
@@ -89,12 +94,12 @@ function Form({ handleAddItems }) {
   );
 }
 
-function PackingList({ items }) {
+function PackingList({ items, handleDeleteItem }) {
   return (
     <div className="bg-yellow-900 h-full">
       <ul className="flex flex-wrap gap-10 font-semibold text-xl bg-yellow-900 text-white p-4">
         {items.map((item) => (
-          <Item item={item} key={item.id} />
+          <Item item={item} handleDeleteItem={handleDeleteItem} key={item.id} />
         ))}
       </ul>
     </div>
@@ -111,13 +116,13 @@ function Stats() {
   );
 }
 
-function Item({ item }) {
+function Item({ item, handleDeleteItem }) {
   return (
     <li className="font-bold">
       <span className={item.packed ? "line-through" : ""}>
         {item.quantity}. {item.description}
       </span>
-      <button>❌</button>
+      <button onClick={() => handleDeleteItem(item.id)}>❌</button>
     </li>
   );
 }
