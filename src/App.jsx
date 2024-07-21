@@ -7,11 +7,17 @@ const initialItems = [
 ];
 
 export default function App() {
+  const [items, setItems] = useState([]);
+
+  function handleAddItems(item) {
+    console.log(item);
+    setItems([...items, item]);
+  }
   return (
     <div className="flex flex-col h-screen bg-yellow-900">
       <Logo />
-      <Form />
-      <PackingList />
+      <Form handleAddItems={handleAddItems} />
+      <PackingList items={items} />
       <Stats />
     </div>
   );
@@ -25,16 +31,19 @@ function Logo() {
   );
 }
 
-function Form() {
+function Form({ handleAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
+
   function handleSubmit(e) {
     e.preventDefault();
 
     if (!description) return;
 
     const newItem = { description, quantity, packed: false, id: Date.now() };
-    console.log(newItem.description);
+    console.log(newItem);
+
+    handleAddItems(newItem);
 
     setDescription("");
     setQuantity(1);
@@ -65,7 +74,7 @@ function Form() {
       <input
         onChange={(e) => {
           // console.log(e);
-          console.log(e.target.value);
+          // console.log(e.target.value);
           setDescription(e.target.value.trim());
         }}
         value={description}
@@ -80,11 +89,11 @@ function Form() {
   );
 }
 
-function PackingList() {
+function PackingList({ items }) {
   return (
     <div className="bg-yellow-900 h-full">
       <ul className="flex flex-wrap gap-10 font-semibold text-xl bg-yellow-900 text-white p-4">
-        {initialItems.map((item) => (
+        {items.map((item) => (
           <Item item={item} key={item.id} />
         ))}
       </ul>
@@ -106,7 +115,7 @@ function Item({ item }) {
   return (
     <li className="font-bold">
       <span className={item.packed ? "line-through" : ""}>
-        {item.quantity} {item.description}
+        {item.quantity}. {item.description}
       </span>
       <button>❌</button>
     </li>
