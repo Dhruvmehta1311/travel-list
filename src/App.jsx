@@ -71,7 +71,7 @@ function Form({ handleAddItems }) {
       onSubmit={handleSubmit}
       className="flex sm:flex-row flex-col gap-4 py-4 px-4 sm:gap-4 bg-orange-600 items-center justify-between"
     >
-      <h3 className="text-center font-normal text-lg sm:text-2xl bg-orange-600">
+      <h3 className="text-center font-semibold text-lg sm:text-2xl bg-orange-600 text-white">
         What stuffs do you need for Trip ?
       </h3>
       <select
@@ -139,7 +139,7 @@ function PackingList({ items, handleDeleteItem, handleUpdateItems }) {
       <select
         value={sortBy}
         onChange={(e) => setSortBy(e.target.value)}
-        className="max-w-[300px] w-[90%] mx-auto rounded-md bg-orange-100 h-[34px]"
+        className="max-w-[300px] w-[90%] mx-auto rounded-md bg-orange-200 border focus:border-black h-[34px]"
       >
         <option value="input">Sort by Input Order</option>
         <option value="description">Sort by Description</option>
