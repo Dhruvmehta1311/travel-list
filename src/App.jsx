@@ -120,7 +120,7 @@ function Item({ item, handleDeleteItem }) {
   return (
     <li className="font-bold">
       <span className={item.packed ? "line-through" : ""}>
-        {item.quantity}. {item.description}
+        {item.quantity} {item.description}
       </span>
       <button onClick={() => handleDeleteItem(item.id)}>❌</button>
     </li>
