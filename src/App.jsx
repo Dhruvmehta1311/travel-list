@@ -18,11 +18,23 @@ export default function App() {
     setItems(items.filter((item) => item.id !== itemId));
   }
 
+  function handleUpdateItems(id) {
+    setItems((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
+    );
+  }
+
   return (
     <div className="flex flex-col h-screen bg-yellow-900">
       <Logo />
       <Form handleAddItems={handleAddItems} />
-      <PackingList items={items} handleDeleteItem={handleDeleteItem} />
+      <PackingList
+        items={items}
+        handleDeleteItem={handleDeleteItem}
+        handleUpdateItems={handleUpdateItems}
+      />
       <Stats />
     </div>
   );
@@ -94,12 +106,17 @@ function Form({ handleAddItems }) {
   );
 }
 
-function PackingList({ items, handleDeleteItem }) {
+function PackingList({ items, handleDeleteItem, handleUpdateItems }) {
   return (
     <div className="bg-yellow-900 h-full">
       <ul className="flex flex-wrap gap-10 font-semibold text-xl bg-yellow-900 text-white p-4">
         {items.map((item) => (
-          <Item item={item} handleDeleteItem={handleDeleteItem} key={item.id} />
+          <Item
+            item={item}
+            handleDeleteItem={handleDeleteItem}
+            handleUpdateItems={handleUpdateItems}
+            key={item.id}
+          />
         ))}
       </ul>
     </div>
@@ -116,9 +133,17 @@ function Stats() {
   );
 }
 
-function Item({ item, handleDeleteItem }) {
+function Item({ item, handleDeleteItem, handleUpdateItems }) {
   return (
-    <li className="font-bold">
+    <li className="font-bold flex gap-2">
+      <input
+        type="checkbox"
+        className="w-4"
+        value={item.packed}
+        onChange={() => {
+          handleUpdateItems(item.id);
+        }}
+      />
       <span className={item.packed ? "line-through" : ""}>
         {item.quantity} {item.description}
       </span>
