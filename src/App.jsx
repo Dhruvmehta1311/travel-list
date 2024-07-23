@@ -25,6 +25,9 @@ export default function App() {
       )
     );
   }
+  function handleReset() {
+    setItems([]);
+  }
 
   return (
     <div className="flex flex-col h-screen bg-yellow-900">
@@ -34,6 +37,7 @@ export default function App() {
         items={items}
         handleDeleteItem={handleDeleteItem}
         handleUpdateItems={handleUpdateItems}
+        handleReset={handleReset}
       />
       <Stats items={items} />
     </div>
@@ -106,7 +110,12 @@ function Form({ handleAddItems }) {
   );
 }
 
-function PackingList({ items, handleDeleteItem, handleUpdateItems }) {
+function PackingList({
+  items,
+  handleDeleteItem,
+  handleUpdateItems,
+  handleReset,
+}) {
   const [sortBy, setSortBy] = useState("input");
 
   let sortedItems;
@@ -125,7 +134,7 @@ function PackingList({ items, handleDeleteItem, handleUpdateItems }) {
   }
 
   return (
-    <div className="bg-yellow-900 h-full sm:px-4 flex flex-col justify-between py-8">
+    <div className="bg-yellow-900 h-full sm:px-4 flex flex-col items-center justify-between py-8">
       <ul className="flex flex-wrap gap-10 font-semibold text-xl bg-yellow-900 text-white p-4">
         {sortedItems.map((item) => (
           <Item
@@ -136,15 +145,23 @@ function PackingList({ items, handleDeleteItem, handleUpdateItems }) {
           />
         ))}
       </ul>
-      <select
-        value={sortBy}
-        onChange={(e) => setSortBy(e.target.value)}
-        className="max-w-[300px] w-[90%] mx-auto rounded-md bg-orange-200 border focus:border-black h-[34px]"
-      >
-        <option value="input">Sort by Input Order</option>
-        <option value="description">Sort by Description</option>
-        <option value="packed">Sort by Packed Status</option>
-      </select>
+      <div className="w-full flex items-center justify-center gap-4">
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="max-w-[300px]  rounded-md bg-orange-200 border focus:border-black h-[34px]"
+        >
+          <option value="input">Sort by Input Order</option>
+          <option value="description">Sort by Description</option>
+          <option value="packed">Sort by Packed Status</option>
+        </select>
+        <button
+          onClick={handleReset}
+          className="px-6 rounded-md bg-orange-200 border focus:border-black h-[34px]"
+        >
+          Clear All
+        </button>
+      </div>
     </div>
   );
 }
