@@ -26,7 +26,9 @@ export default function App() {
     );
   }
   function handleReset() {
-    setItems([]);
+    if (confirm("Do you want to clear all items?")) {
+      setItems([]);
+    }
   }
 
   return (
